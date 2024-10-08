@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
-    <link rel="stylesheet" href="{{ asset('css/home_styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/base_styles.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -13,24 +13,53 @@
         <div class="container">
             <a class="navbar-brand" href="{{ route('home') }}">North Barber</a>
             <ul class="navbar-menu">
-                <li><a href="{{ route('home') }}">Inicio</a></li>
-                <li><a href="">Servicios</a></li>
-                <li><a href="">Productos</a></li>
-                <li><a href="">Citas</a></li>
-                <li><a href="">Contacto</a></li>
+                <li class="nav-items">
+                    <a href="{{ route('home') }}">
+                        <img src="{{ asset('img/home.png') }}" alt="Inicio" class="nav-picture">Inicio
+                    </a>
+                </li>
+                <li class="nav-items">
+                    <a href="#">
+                        <img src="{{ asset('img/services.png') }}" alt="Servicios" class="nav-picture">Servicios
+                    </a>
+                </li>
+                <li class="nav-items">
+                    <a href="#">
+                        <img src="{{ asset('img/shop.png') }}" alt="Comprar" class="nav-picture">Comprar
+                    </a>
+                </li>
+                <li class="nav-items">
+                    <a href="#">
+                        <img src="{{ asset('img/citas.png') }}" alt="Citas" class="nav-picture">Citas
+                    </a>
+                </li>
+                <li class="nav-items">
+                    <a href="#">
+                        <img src="{{ asset('img/carrito.png') }}" alt="Carrito" class="nav-picture">Carrito
+                    </a>
+                </li>
+
                 <!-- Verificamos si el usuario está autenticado -->
                 @if(Auth::check())
-                    <li><a href="">Perfil</a></li>
-                    <!-- Formulario para cerrar sesión -->
-                    <li>
+                    <li class="nav-items">
+                        <a href="{{ route('profile.edit') }}">
+                            <img 
+                                src="{{ Auth::user()->profile_image ? asset('storage/' . Auth::user()->profile_image) : asset('img/profile.png') }}" 
+                                alt="Perfil" class="nav-picture profile-picture">Perfil
+                            <!-- Mostramos la imagen de perfil o una imagen predeterminada -->
+                        </a>
+                    </li>
+                    <li class="nav-items">
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
-                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sesión</a>
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <img src="{{ asset('img/logout.png') }}" alt="Logout" class="nav-picture">Logout
+                        </a>
                     </li>
                 @else
-                    <li><a href="{{ route('login') }}">Iniciar Sesión</a></li>
-                    <li><a href="{{ route('register') }}">Registrarse</a></li>
+                    <li class="nav-items"><a href="{{ route('login') }}">Iniciar Sesión</a></li>
+                    <li class="nav-items"><a href="{{ route('register') }}">Registrarse</a></li>
                 @endif
             </ul>
         </div>
@@ -42,10 +71,6 @@
     </div>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 North Barber.</p>
-        </div>
-    </footer>
+
 </body>
 </html>
