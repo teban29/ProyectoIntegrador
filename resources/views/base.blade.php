@@ -28,10 +28,15 @@
                         <img src="{{ asset('img/shop.png') }}" alt="Comprar" class="nav-picture">Comprar
                     </a>
                 </li>
-                <li class="nav-items">
+                <!-- Menú desplegable para "Citas" -->
+                <li class="nav-items citas-dropdown">
                     <a href="#">
                         <img src="{{ asset('img/citas.png') }}" alt="Citas" class="nav-picture">Citas
                     </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ route('citas.create') }}">Nueva Cita</a></li>
+                        <li><a class="dropdown-item" href="{{ route('citas.ver') }}">Ver Citas</a></li>
+                    </ul>
                 </li>
                 <li class="nav-items">
                     <a href="#">
@@ -46,7 +51,6 @@
                             <img 
                                 src="{{ Auth::user()->profile_image ? asset('storage/' . Auth::user()->profile_image) : asset('img/profile.png') }}" 
                                 alt="Perfil" class="nav-picture profile-picture">Perfil
-                            <!-- Mostramos la imagen de perfil o una imagen predeterminada -->
                         </a>
                     </li>
                     <li class="nav-items">

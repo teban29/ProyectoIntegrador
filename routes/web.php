@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CitaController;
 
 
 //opciones inicio
@@ -23,4 +24,14 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
+
+//citas
+Route::prefix('citas')->group(function () {
+    Route::get('create', [CitaController::class, 'create'])->name('citas.create');
+    Route::post('filtrar', [CitaController::class, 'filtrar'])->name('citas.filtrar');
+    Route::post('store', [CitaController::class, 'store'])->name('citas.store');
+    Route::get('/citas/ver', [CitaController::class, 'verCitas'])->name('citas.ver')->middleware('auth');
+    Route::delete('/citas/{id}/cancelar', [CitaController::class, 'cancelar'])->name('citas.cancelar');
+
 });
