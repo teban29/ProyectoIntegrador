@@ -1,15 +1,23 @@
-body {
-    font-family: 'Poppins', sans-serif;
+* {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
 }
 
-/* Pseudo-elemento para el fondo */
 body::before {
     content: '';
     position: absolute;
@@ -17,12 +25,12 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url(/img/bgimage.png);
+    background-image: url('/img/bgimage.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.9;
-    filter: blur(2px);
+    opacity: 0.85; /* Ajustamos la opacidad */
+    filter: blur(3px); /* Aumentamos el desenfoque */
     z-index: -1;
 }
 
@@ -33,32 +41,30 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6); /* Reducido para mejorar contraste */
+    background: rgba(0, 0, 0, 0.6); /* Aumentamos la oscuridad del overlay */
     z-index: -1;
 }
 
-/* Ajuste del contenedor principal */
 .main-container {
-    width: 50%; /* Ajuste para ser más cuadrado */
-    max-width: 500px; /* Limitamos el ancho máximo */
-    min-height: auto;
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
     background-color: rgba(0, 0, 0, 0.85);
-    padding: 40px; /* Aumentamos el padding */
     border-radius: 15px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    z-index: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-bottom: 20px; /* Reducimos el margen inferior */
 }
 
 .title-container {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 .title-container h2 {
-    font-size: 30px; /* Aumentamos el tamaño del título */
+    font-size: 24px;
     font-weight: 600;
     color: #ffffff;
 }
@@ -72,14 +78,14 @@ body::after {
 
 .form-container {
     width: 100%;
-    max-width: 450px; /* Ancho más amplio */
-    margin-bottom: 15px;
+    max-width: 450px;
+    margin-bottom: 10px; /* Reducimos los márgenes entre campos */
 }
 
 .form-item {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px; /* Más espacio entre elementos */
+    margin-bottom: 10px;
 }
 
 .form-item label {
@@ -89,7 +95,7 @@ body::after {
 }
 
 .form-item input {
-    padding: 12px;
+    padding: 10px;
     font-size: 16px;
     color: #fff;
     background-color: #00000042;
@@ -106,11 +112,11 @@ body::after {
 
 .button-container {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 15px; /* Reducimos el margen superior */
 }
 
 .button-container button {
-    padding: 12px 30px; /* Botones más grandes */
+    padding: 10px 30px;
     font-size: 16px;
     background-color: #424242;
     color: #fff;
@@ -127,11 +133,10 @@ body::after {
 }
 
 .messages-container {
-    margin-top: 20px;
+    margin-top: 15px;
     text-align: center;
 }
 
-/* Estilos del texto para el enlace de iniciar sesión */
 .text-center {
     color: #fff;
     margin-top: 15px;
@@ -155,19 +160,17 @@ body::after {
     text-decoration: underline;
 }
 
-/* Ajustes para los botones en columna */
 .options-container {
     display: flex;
-    flex-direction: column; /* Coloca los botones en columna */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px; /* Espacio entre los botones */
+    gap: 20px;
 }
 
-/* Botones estilizados */
 .options-container button {
-    width: 100%; /* Botones ocupan todo el ancho del contenedor */
-    max-width: 300px; /* Tamaño máximo para evitar que sean demasiado grandes */
+    width: 100%;
+    max-width: 300px;
     padding: 15px 20px;
     font-size: 18px;
     background-color: #424242;
@@ -184,10 +187,6 @@ body::after {
     transform: scale(1.05);
 }
 
-
-
-
-/* Estilos responsivos */
 @media (max-width: 1024px) {
     .main-container {
         width: 70%;
@@ -197,11 +196,11 @@ body::after {
 @media (max-width: 768px) {
     .main-container {
         width: 80%;
-        padding: 30px; /* Reducimos padding en pantallas pequeñas */
+        padding: 20px;
     }
 
     .title-container h2 {
-        font-size: 24px;
+        font-size: 22px;
     }
 
     .form-item input {
@@ -231,4 +230,4 @@ body::after {
     .button-container button {
         padding: 10px 20px;
     }
-}   
+}
