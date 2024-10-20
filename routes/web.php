@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CitaController;
+use App\Http\Controllers\ProductController;
 
 
 //opciones inicio
@@ -34,4 +35,10 @@ Route::prefix('citas')->group(function () {
     Route::get('/citas/ver', [CitaController::class, 'verCitas'])->name('citas.ver')->middleware('auth');
     Route::delete('/citas/{id}/cancelar', [CitaController::class, 'cancelar'])->name('citas.cancelar');
 
+});
+
+// Productos
+Route::middleware('auth')->group(function () {
+    Route::get('/tienda', [ProductController::class, 'index'])->name('productos.index');
+    Route::get('/producto/{id}', [ProductController::class, 'show'])->name('productos.show');
 });

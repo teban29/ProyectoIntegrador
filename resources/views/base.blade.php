@@ -24,8 +24,8 @@
                     </a>
                 </li>
                 <li class="nav-items">
-                    <a href="#">
-                        <img src="{{ asset('img/shop.png') }}" alt="Comprar" class="nav-picture">Comprar
+                    <a href="{{ route('productos.index') }}">
+                        <img src="{{ asset('img/shop.png') }}" alt="Comprar" class="nav-picture">Tienda
                     </a>
                 </li>
                 <!-- Menú desplegable para "Citas" -->
