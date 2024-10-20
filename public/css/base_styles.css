@@ -58,59 +58,6 @@ body {
     padding: 20px;
 }
 
-.profile-edit-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.profile-edit-container h1 {
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="password"],
-.form-group input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.form-group .error {
-    color: red;
-    font-size: 14px;
-}
-
-.btn {
-    background-color: #4CAF50; /* Color del botón */
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #45a049; /* Color del botón en hover */
-}
-
-/* Mantén los estilos que ya tienes en tu archivo CSS y añade estos estilos para el menú desplegable */
-
-/* Estilos para el menú desplegable */
 .citas-dropdown {
     position: relative;
 }

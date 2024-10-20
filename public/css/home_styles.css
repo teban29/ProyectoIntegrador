@@ -11,7 +11,7 @@ body {
 .home-container {
     text-align: center;
     padding: 60px 20px;
-    background-color: #1c1c1c;
+    background-color: #212121; /* Fondo oscuro */
     color: white;
 }
 
@@ -22,18 +22,18 @@ body {
 
 .welcome-title {
     font-size: 3em;
-    color: #fff;
+    color: #ffffff; /* Blanco */
 }
 
 .welcome-text {
     font-size: 1.2em;
     margin: 20px 0;
-    color: #b3b3b3;
+    color: #d1d1d1; /* Gris claro */
 }
 
 .btn-primary {
-    background-color: #e91e63;
-    color: #fff;
+    background-color: #e91e63; /* Rosa intenso */
+    color: #ffffff; /* Blanco */
     padding: 15px 30px;
     text-decoration: none;
     font-size: 1.1em;
@@ -42,7 +42,7 @@ body {
 }
 
 .btn-primary:hover {
-    background-color: #d81b60;
+    background-color: #c2185b; /* Rosa oscuro al pasar el cursor */
 }
 
 /* Features Section */
@@ -56,10 +56,10 @@ body {
     max-width: 300px;
     margin: 20px;
     text-align: center;
-    background-color: #2c2c2c;
+    background-color: #1f1f1f; /* Fondo de las tarjetas */
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra más fuerte */
 }
 
 .feature-image {
@@ -70,11 +70,11 @@ body {
 .feature-title {
     font-size: 1.5em;
     margin: 15px 0;
-    color: #fff;
+    color: #ffffff; /* Blanco */
 }
 
 .feature-text {
-    color: #b3b3b3;
+    color: #d1d1d1; /* Texto gris claro */
 }
 
 /* Responsive Design */
