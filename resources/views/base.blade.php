@@ -39,7 +39,7 @@
                     </ul>
                 </li>
                 <li class="nav-items">
-                    <a href="#">
+                    <a href="{{ route('carrito.mostrar') }}">
                         <img src="{{ asset('img/carrito.png') }}" alt="Carrito" class="nav-picture">Carrito
                     </a>
                 </li>

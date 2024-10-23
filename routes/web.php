@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CarritoController;
 
 
 //opciones inicio
@@ -41,4 +42,15 @@ Route::prefix('citas')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/tienda', [ProductController::class, 'index'])->name('productos.index');
     Route::get('/producto/{id}', [ProductController::class, 'show'])->name('productos.show');
+});
+
+//carrito
+Route::middleware('auth')->group(function () {
+
+    Route::get('/carrito', [CarritoController::class, 'mostrar'])->name('carrito.mostrar');
+    Route::post('/carrito/agregar/{id}', [CarritoController::class, 'agregar'])->name('carrito.agregar');
+    Route::post('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
+    Route::post('/carrito/sumar/{id}', [CarritoController::class, 'sumar'])->name('carrito.sumar');
+    Route::post('/carrito/vaciar', [CarritoController::class, 'vaciar'])->name('carrito.vaciar');
+    
 });
