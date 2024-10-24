@@ -354,6 +354,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background-color: #f0ad4e;
     color: #fff;
     border: none;
+    
 }
 
 .btn-warning:hover {

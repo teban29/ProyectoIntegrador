@@ -6,6 +6,7 @@
 <head>
     <link rel="stylesheet" href="{{ asset('css/home_styles.css') }}">
 </head>
+<section>
     <div class="home-container">
         <div class="welcome-section">
             <h1 class="welcome-title">Bienvenido a North Barber</h1>
@@ -18,7 +19,7 @@
         <div class="features-section">
             <div class="feature">
                 <img src="{{ asset('img/services.png') }}" alt="Servicios" class="feature-image">
-                <h3 class="feature-title">Servicios Premium</h3>
+                <h3 class="feature-title">Servicios</h3>
                 <p class="feature-text">Cortes clásicos, modernos, afeitados, y más.</p>
             </div>
 
@@ -35,4 +36,11 @@
             </div>
         </div>
     </div>
+</section>
+<th></th>
+<section>
+    <div class=services-section>
+        <h2 class="section-title">Servicios</h2>
+    </div>
+</section>
 @endsection
