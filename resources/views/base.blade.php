@@ -24,17 +24,23 @@
                     </a>
                 </li>
                 <li class="nav-items">
-                    <a href="{{ route('productos.index') }}">
+                    <a href="{{ route('tienda.index') }}">
                         <img src="{{ asset('img/shop.png') }}" alt="Comprar" class="nav-picture">Tienda
                     </a>
                 </li>
+                @if(Auth::check() && Auth::user()->rol_id == 1)
+                    <li class="nav-items">
+                        <a href="{{ route('gestion.index') }}">
+                            <img src="{{ asset('img/dashboard.png') }}" alt="Dashboard" class="nav-picture">Gestión
+                    </li>
+                @endif
                 <!-- Menú desplegable para "Citas" -->
                 <li class="nav-items citas-dropdown">
                     <a href="#">
                         <img src="{{ asset('img/citas.png') }}" alt="Citas" class="nav-picture">Citas
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('citas.create') }}">Nueva Cita</a></li>
+                        <li><a class="dropdown-item" href="{{ route('citas.agendar') }}">Nueva Cita</a></li>
                         <li><a class="dropdown-item" href="{{ route('citas.ver') }}">Ver Citas</a></li>
                     </ul>
                 </li>

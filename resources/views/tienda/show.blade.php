@@ -10,7 +10,9 @@
     <div class="product-detail-container">
         <!-- Imagen del producto -->
         <div class="product-image-container">
-            <img src="{{ asset('images/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="product-image">
+            @if($producto->imagen_url)
+                <img src="{{ asset('storage/' . $producto->imagen_url) }}" alt="{{ $producto->nombre }}">
+            @endif        
         </div>
 
         <!-- Información del producto -->

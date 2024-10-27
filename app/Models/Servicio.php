@@ -9,9 +9,10 @@ class Servicio extends Model
 {
     use HasFactory;
 
-    protected $table = 'servicios'; // Asegúrate de que el nombre de la tabla coincida con tu base de datos
+    protected $fillable = ['nombre', 'descripcion', 'precio'];
 
-    protected $fillable = [
-        'nombre', 'precio', 'duracion',
-    ];
+    public function citas()
+    {
+        return $this->hasMany(Cita::class);
+    }
 }

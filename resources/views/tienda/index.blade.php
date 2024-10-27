@@ -43,9 +43,10 @@
 <div class="product-grid">
     @foreach($productos as $producto)
         <div class="product-card">
-            <a href="{{ route('productos.show', $producto->id) }}" class="product-link">
-                <img src="{{ asset('images/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="product-image">
-                <div class="product-info">
+            <a href="{{ route('tienda.show', $producto->id) }}" class="product-link">
+                        @if($producto->imagen_url)
+                            <img src="{{ asset('storage/' . $producto->imagen_url) }}" alt="{{ $producto->nombre }}">
+                        @endif
                     <h3 class="product-name">{{ $producto->nombre }}</h3>
                     <p class="product-price">${{ $producto->precio }}</p>
                 </div>

@@ -21,7 +21,7 @@ class CitaController extends Controller
     {
         $servicios = Servicio::all(); // Obtener todos los servicios
         $horas = $this->getAvailableHours(now()->format('Y-m-d')); // Horas disponibles para la fecha actual
-        return view('citas.create', compact('servicios', 'horas'));
+        return view('citas.agendar', compact('servicios', 'horas', 'fecha', 'horaSeleccionada'));
     }
 
     public function filtrar(Request $request)
@@ -50,7 +50,7 @@ class CitaController extends Controller
             })
             ->get();
 
-        return view('citas.create', compact('servicios', 'barberosDisponibles', 'fecha', 'horas', 'servicio_id', 'horaSeleccionada'));
+        return view('citas.agendar', compact('servicios', 'barberosDisponibles', 'fecha', 'horas', 'servicio_id', 'horaSeleccionada'));
     }
 
     public function store(Request $request)

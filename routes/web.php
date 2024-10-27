@@ -9,7 +9,13 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CarritoController;
-
+use App\Http\Controllers\YourCRUDController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ServicioController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\AdminCitaController;
+use App\Http\Controllers\MarcaController;
 
 //opciones inicio
 Route::get('/', [AuthController::class, 'showAuthOptions'])->name('auth.options');
@@ -30,18 +36,17 @@ Route::middleware('auth')->group(function () {
 
 //citas
 Route::prefix('citas')->group(function () {
-    Route::get('create', [CitaController::class, 'create'])->name('citas.create');
+    Route::get('agendar', [CitaController::class, 'create'])->name('citas.agendar');
     Route::post('filtrar', [CitaController::class, 'filtrar'])->name('citas.filtrar');
     Route::post('store', [CitaController::class, 'store'])->name('citas.store');
-    Route::get('/citas/ver', [CitaController::class, 'verCitas'])->name('citas.ver')->middleware('auth');
-    Route::delete('/citas/{id}/cancelar', [CitaController::class, 'cancelar'])->name('citas.cancelar');
-
+    Route::get('/ver', [CitaController::class, 'verCitas'])->name('citas.ver')->middleware('auth');
+    Route::delete('/{id}/cancelar', [CitaController::class, 'cancelar'])->name('citas.cancelar');
 });
 
-// Productos
+// Tienda
 Route::middleware('auth')->group(function () {
-    Route::get('/tienda', [ProductController::class, 'index'])->name('productos.index');
-    Route::get('/producto/{id}', [ProductController::class, 'show'])->name('productos.show');
+    Route::get('tienda', [ProductController::class, 'index'])->name('tienda.index');
+    Route::get('/tienda/{id}', [ProductController::class, 'show'])->name('tienda.show');
 });
 
 //carrito
@@ -54,3 +59,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/carrito/vaciar', [CarritoController::class, 'vaciar'])->name('carrito.vaciar');
     
 });
+
+//CRUD  
+
+Route::resource('gestion', YourCRUDController::class)->middleware('auth');
+Route::resource('usuarios', UserController::class)->middleware('auth');
+Route::resource('servicios', ServicioController::class)->middleware('auth');
+Route::resource('categorias', CategoriaController::class)->middleware('auth');
+Route::resource('productos', AdminProductController::class)->middleware('auth');
+Route::resource('citas', AdminCitaController::class)->middleware('auth');
+Route::resource('marcas', MarcaController::class)->middleware('auth');
