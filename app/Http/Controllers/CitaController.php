@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Cita;
@@ -10,51 +9,47 @@ use Illuminate\Support\Facades\Auth;
 
 class CitaController extends Controller
 {
-    public function index()
-    {
-        // Cargar las citas con la relación del barbero
-        $citas = Cita::with(['servicio', 'barbero'])->where('usuario_id', auth()->id())->get();
-        return view('citas.index', compact('citas'));
-    }
-
     public function create()
     {
-        $servicios = Servicio::all(); // Obtener todos los servicios
-        $horas = $this->getAvailableHours(now()->format('Y-m-d')); // Horas disponibles para la fecha actual
-        return view('citas.agendar', compact('servicios', 'horas', 'fecha', 'horaSeleccionada'));
+        // Obtener todos los servicios
+        $servicios = Servicio::all();
+        // Definir la fecha actual para la selección
+        $fecha = now()->format('Y-m-d');
+        // Obtener las horas disponibles para la fecha actual
+        $horas = $this->getAvailableHours($fecha);
+        
+        return view('citas.agendar', compact('servicios', 'horas', 'fecha'));
     }
 
     public function filtrar(Request $request)
     {
+        // Validar la solicitud
         $request->validate([
             'servicio_id' => 'required|exists:servicios,id',
             'fecha' => 'required|date',
             'hora' => 'required',
         ]);
-
-        // Obtener servicios
+    
         $servicios = Servicio::all();
-
         $servicio_id = $request->servicio_id;
         $fecha = $request->fecha;
         $horaSeleccionada = $request->hora;
-
-        // Obtener horas disponibles
         $horas = $this->getAvailableHours($fecha);
-
-        // Obtener barberos disponibles
-        $barberosDisponibles = Usuario::where('rol_id', 2) // Asumiendo que rol_id 2 es barbero
+        $barberosDisponibles = Usuario::where('rol_id', 2)
             ->whereDoesntHave('citas', function ($query) use ($fecha, $horaSeleccionada) {
                 $query->where('fecha', $fecha)
                       ->where('hora', $horaSeleccionada);
             })
             ->get();
-
+    
+        // Pasar los datos a la vista nuevamente
         return view('citas.agendar', compact('servicios', 'barberosDisponibles', 'fecha', 'horas', 'servicio_id', 'horaSeleccionada'));
     }
+    
 
     public function store(Request $request)
     {
+        // Validar la solicitud
         $request->validate([
             'servicio_id' => 'required|exists:servicios,id',
             'fecha' => 'required|date',
@@ -62,13 +57,13 @@ class CitaController extends Controller
             'barbero_id' => 'required|exists:usuarios,id',
         ]);
 
-        // Crear la cita con los datos proporcionados
+        // Crear la cita
         Cita::create([
             'servicio_id' => $request->servicio_id,
             'fecha' => $request->fecha,
             'hora' => $request->hora,
             'barbero_id' => $request->barbero_id,
-            'cliente_id' => Auth::id(), // Obtener el id del cliente autenticado
+            'cliente_id' => Auth::id(),
         ]);
 
         return redirect()->route('citas.ver')->with('success', 'Cita agendada con éxito.');
@@ -85,31 +80,19 @@ class CitaController extends Controller
             $horas[] = date('H:i', strtotime("$hora:30")); // Agregar el intervalo de 30 minutos
         }
     
-        // Filtrar horas ya ocupadas
+        // Filtrar horas ocupadas
         $citas = Cita::where('fecha', $fecha)->pluck('hora')->toArray();
         return array_diff($horas, $citas); // Devolver horas disponibles
     }
 
     public function verCitas()
     {
+        // Cargar las citas del usuario autenticado
         $citas = Cita::with(['servicio', 'barbero'])
-                     ->where('cliente_id', auth()->id())
-                     ->get();
-    
+                    ->where('cliente_id', auth()->id())
+                    ->get();
+
         return view('citas.ver', compact('citas'));
     }
-    
-    public function cancelar($id)
-    {
-        // Buscar la cita por ID
-        $cita = Cita::findOrFail($id);
-    
-        // Eliminar la cita
-        $cita->delete();
-    
-        return redirect()->route('citas.ver')->with('success', 'Cita cancelada exitosamente.');
-    }
-    
-    
-    
+
 }

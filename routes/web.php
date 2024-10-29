@@ -14,7 +14,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\AdminProductController;
-use App\Http\Controllers\AdminCitaController;
 use App\Http\Controllers\MarcaController;
 
 //opciones inicio
@@ -35,14 +34,14 @@ Route::middleware('auth')->group(function () {
 });
 
 //citas
-Route::prefix('citas')->group(function () {
-    Route::get('agendar', [CitaController::class, 'create'])->name('citas.agendar');
-    Route::post('filtrar', [CitaController::class, 'filtrar'])->name('citas.filtrar');
-    Route::post('store', [CitaController::class, 'store'])->name('citas.store');
-    Route::get('/ver', [CitaController::class, 'verCitas'])->name('citas.ver')->middleware('auth');
+Route::middleware('auth')->group(function () {
+    Route::get('/citas/agendar', [CitaController::class, 'create'])->name('citas.agendar');
+    Route::post('/citas/filtrar', [CitaController::class, 'filtrar'])->name('citas.filtrar');
+    Route::post('/citas', [CitaController::class, 'store'])->name('citas.store');
+    Route::get('/citas/ver', [CitaController::class, 'verCitas'])->name('citas.ver');
     Route::delete('/{id}/cancelar', [CitaController::class, 'cancelar'])->name('citas.cancelar');
-});
 
+});
 // Tienda
 Route::middleware('auth')->group(function () {
     Route::get('tienda', [ProductController::class, 'index'])->name('tienda.index');
@@ -67,5 +66,4 @@ Route::resource('usuarios', UserController::class)->middleware('auth');
 Route::resource('servicios', ServicioController::class)->middleware('auth');
 Route::resource('categorias', CategoriaController::class)->middleware('auth');
 Route::resource('productos', AdminProductController::class)->middleware('auth');
-Route::resource('citas', AdminCitaController::class)->middleware('auth');
 Route::resource('marcas', MarcaController::class)->middleware('auth');
