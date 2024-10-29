@@ -15,6 +15,7 @@ use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\AdminCitaController;
 
 //opciones inicio
 Route::get('/', [AuthController::class, 'showAuthOptions'])->name('auth.options');
@@ -37,11 +38,22 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/citas/agendar', [CitaController::class, 'create'])->name('citas.agendar');
     Route::post('/citas/filtrar', [CitaController::class, 'filtrar'])->name('citas.filtrar');
-    Route::post('/citas', [CitaController::class, 'store'])->name('citas.store');
-    Route::get('/citas/ver', [CitaController::class, 'verCitas'])->name('citas.ver');
-    Route::delete('/{id}/cancelar', [CitaController::class, 'cancelar'])->name('citas.cancelar');
+    Route::post('/citas/store', [CitaController::class, 'store'])->name('citas.store');
+    Route::get('/citas/ver', [CitaController::class, 'ver'])->name('citas.ver');
+    Route::delete('/citas/{id}/cancelar', [CitaController::class, 'cancelar'])->name('citas.cancelar');
 
+    // CRUD para administración de citas
+    Route::prefix('admin/citas')->group(function () {
+        Route::get('/', [AdminCitaController::class, 'index'])->name('admin.citas.index');
+        Route::get('/create', [AdminCitaController::class, 'create'])->name('admin.citas.create');
+        Route::post('/', [AdminCitaController::class, 'store'])->name('admin.citas.store');
+        Route::get('/{id}', [AdminCitaController::class, 'show'])->name('admin.citas.show');
+        Route::get('/{id}/edit', [AdminCitaController::class, 'edit'])->name('admin.citas.edit');
+        Route::put('/{id}', [AdminCitaController::class, 'update'])->name('admin.citas.update');
+        Route::delete('/{id}', [AdminCitaController::class, 'destroy'])->name('admin.citas.destroy');
+    });
 });
+
 // Tienda
 Route::middleware('auth')->group(function () {
     Route::get('tienda', [ProductController::class, 'index'])->name('tienda.index');

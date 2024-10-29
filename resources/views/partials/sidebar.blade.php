@@ -26,7 +26,7 @@
             </a>
         </li>
         <li class="sidebar-item">
-            <a href="{{ route('citas.index') }}">
+            <a href="{{ route('admin.citas.index') }}">
                 <img src="{{ asset('img/citas.png') }}" alt="Citas Icon" class="sidebar-icon">Citas
             </a>
         </li>

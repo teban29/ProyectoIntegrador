@@ -13,7 +13,7 @@
             <p class="welcome-text">
                 Experimenta los mejores cortes de cabello y servicios de barbería con nuestros barberos profesionales. ¡Agenda tu cita hoy mismo!
             </p>
-            <a href="{{ route('citas.create') }}" class="btn-primary">Agendar Cita</a>
+            <a href="{{ route('citas.agendar') }}" class="btn-primary">Agendar Cita</a>
         </div>
 
         <div class="features-section">

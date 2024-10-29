@@ -85,7 +85,7 @@ class CitaController extends Controller
         return array_diff($horas, $citas); // Devolver horas disponibles
     }
 
-    public function verCitas()
+    public function ver()
     {
         // Cargar las citas del usuario autenticado
         $citas = Cita::with(['servicio', 'barbero'])
@@ -93,6 +93,14 @@ class CitaController extends Controller
                     ->get();
 
         return view('citas.ver', compact('citas'));
+    }
+
+    public function cancelar(Request $request, $id)
+    {
+        $cita = Cita::findOrFail($id);
+        $cita->delete();
+
+        return redirect()->route('citas.ver')->with('success', 'Cita cancelada con éxito.');
     }
 
 }
