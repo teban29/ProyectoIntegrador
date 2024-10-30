@@ -9,23 +9,29 @@ class CarritoController extends Controller
 {
     public function mostrar()
     {
-        $carrito = session()->get('carrito', []); // Esta línea es correcta
-        return view('carrito.mostrar', compact('carrito')); // Esta línea también es correcta
+        $carrito = session()->get('carrito', []); 
+        return view('carrito.mostrar', compact('carrito'));
     }
 
     public function agregar($id)
     {
-        $producto = Producto::find($id);
+        $producto = Producto::select('id', 'nombre', 'precio', 'imagen_url')->find($id);        
+        // Verificación adicional para asegurar que el producto existe
+        if (!$producto) {
+            return redirect()->route('carrito.mostrar')->with('error', 'Producto no encontrado');
+        }
+
         $carrito = session()->get('carrito', []);
 
+        // Asigna el valor de imagen_url a la clave 'imagen'
         $carrito[$id] = [
             "nombre" => $producto->nombre,
             "cantidad" => isset($carrito[$id]) ? $carrito[$id]['cantidad'] + 1 : 1,
             "precio" => $producto->precio,
-            "imagen" => $producto->imagen
+            "imagen" => $producto->imagen_url,
         ];
 
-        session()->put('carrito', $carrito);
+        session()->put('carrito', $carrito); 
         return redirect()->route('carrito.mostrar')->with('success', 'Producto agregado al carrito');
     }
 

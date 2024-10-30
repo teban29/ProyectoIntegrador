@@ -79,7 +79,7 @@ body {
 /* Product Grid */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Ancho mínimo de las cartas */
     gap: 20px;
     padding: 20px;
 }
@@ -90,10 +90,14 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    max-width: 300px;
+    width: 250px; /* Ancho fijo */
+    height: 350px; /* Alto fijo para uniformidad */
     margin: 20px auto;
     transition: transform 0.2s ease-in-out;
     color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .product-card:hover {
@@ -102,16 +106,20 @@ body {
 
 .product-card img {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: 200px; /* Ajuste para todas las imágenes */
+    object-fit: contain; /* Evita que la imagen se recorte */
     display: block;
+    margin: 0 auto;
 }
 
 .product-info {
     padding: 15px;
     text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
-
 .product-name {
     font-size: 1.2em;
     margin: 0;
@@ -206,9 +214,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 
 .product-image {
-    width: 100%; /* Se ajusta al ancho del contenedor */
-    height: 500px; /* Altura fija para todas las imágenes */
-    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain; /* Ajuste para ver toda la imagen */
     border-radius: 5px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -285,6 +293,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: 80px;
     height: 80px;
     object-fit: cover;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
 }
 
 /* Warning Button */
@@ -329,6 +340,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     transition: background-color 0.3s ease;
 }
 
-.btn-eliminar:hover {
-    background-color: #c82333;
+.btn-danger:hover,
+.add-to-cart-button:hover {
+    background-color: #ffffff;
+    color: #424242;
+    transform: scale(1.05);
 }

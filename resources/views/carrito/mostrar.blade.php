@@ -4,6 +4,7 @@
 @section('title', 'Carrito de compras')
 
 @section('content')
+
 <header>
 <link rel="stylesheet" href="{{ asset('css/products_styles.css') }}">
 </header>
@@ -31,7 +32,13 @@
                 <tbody>
                     @foreach($carrito as $id => $producto)
                         <tr>
-                            <td><img src="{{ asset('images/' . $producto['imagen']) }}" alt="{{ $producto['nombre'] }}" class="cart-image"></td>
+                            <td>
+                                @if(!empty($producto['imagen']))
+                                <img src="{{ Storage::url('productos/' . $producto['imagen']) }}" alt="{{ $producto['nombre'] }}" class="cart-image">
+                                @else
+                                No disponible
+                                @endif
+                            </td>
                             <td>{{ $producto['nombre'] }}</td>
                             <td>${{ $producto['precio'] }}</td>
                             <td>{{ $producto['cantidad'] }}</td>

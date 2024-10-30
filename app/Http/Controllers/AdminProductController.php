@@ -60,7 +60,7 @@ class AdminProductController extends Controller
         // Manejar la carga de la imagen
         if ($request->hasFile('imagen')) {
             $path = $request->file('imagen')->store('productos', 'public'); // Guarda la imagen en storage/app/public/productos
-            $producto->imagen_url = $path; // Guarda la ruta en la base de datos
+            $producto->imagen = $path; // Guarda la ruta en la base de datos
         }
 
         $producto->save();
