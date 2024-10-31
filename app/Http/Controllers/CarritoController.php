@@ -50,7 +50,6 @@ class CarritoController extends Controller
     public function sumar($id)
     {
         $carrito = session()->get('carrito', []);
-
         if (isset($carrito[$id])) {
             $carrito[$id]['cantidad']++;
             session()->put('carrito', $carrito);

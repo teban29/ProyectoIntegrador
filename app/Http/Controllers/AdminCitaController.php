@@ -15,12 +15,17 @@ class AdminCitaController extends Controller
 {
     public function index()
     {
+
+
         $citas = Cita::with(['servicio', 'cliente', 'barbero'])->get();
         return view('admin.citas.index', compact('citas'));
     }
 
     public function create()
     {
+        if (Auth::id() != 1) {
+            return redirect('/')->with('error', 'No tienes acceso a esta sección.');
+        }
         $servicios = Servicio::all();
         $clientes = Usuario::where('rol_id', 3)->get(); // Asumiendo 3 es el rol de cliente
         $barberos = Usuario::where('rol_id', 2)->get(); // Asumiendo 2 es el rol de barbero
@@ -30,6 +35,7 @@ class AdminCitaController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'fecha' => 'required|date',
             'hora' => 'required|date_format:H:i',
@@ -45,12 +51,14 @@ class AdminCitaController extends Controller
 
     public function show($id)
     {
+
         $cita = Cita::with(['servicio', 'cliente', 'barbero'])->findOrFail($id);
         return view('admin.citas.show', compact('cita'));
     }
 
     public function edit($id)
     {
+
         $cita = Cita::findOrFail($id);
         $servicios = Servicio::all();
         $clientes = Usuario::where('rol_id', 3)->get(); // Clientes
@@ -61,6 +69,7 @@ class AdminCitaController extends Controller
 
     public function update(Request $request, $id)
     {
+
         $request->validate([
             'fecha' => 'required|date',
             'hora' => 'required|date_format:H:i',

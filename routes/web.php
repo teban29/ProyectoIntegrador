@@ -60,6 +60,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/tienda/{id}', [ProductController::class, 'show'])->name('tienda.show');
 });
 
+//crud productos
+Route::prefix('admin/productos')->group(function () {
+    Route::resource('productos', AdminProductController::class)->middleware('auth');    
+});
+
 //carrito
 Route::middleware('auth')->group(function () {
 
@@ -73,9 +78,8 @@ Route::middleware('auth')->group(function () {
 
 //CRUD  
 
-Route::resource('gestion', YourCRUDController::class)->middleware('auth');
-Route::resource('usuarios', UserController::class)->middleware('auth');
-Route::resource('servicios', ServicioController::class)->middleware('auth');
-Route::resource('categorias', CategoriaController::class)->middleware('auth');
-Route::resource('productos', AdminProductController::class)->middleware('auth');
-Route::resource('marcas', MarcaController::class)->middleware('auth');
+Route::resource('gestion', YourCRUDController::class);
+Route::resource('usuarios', UserController::class);
+Route::resource('servicios', ServicioController::class);
+Route::resource('categorias', CategoriaController::class);
+Route::resource('marcas', MarcaController::class);

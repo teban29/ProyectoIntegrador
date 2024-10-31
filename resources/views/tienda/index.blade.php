@@ -9,7 +9,7 @@
 
 <div class="store-container">
     <!-- Formulario de búsqueda y filtros -->
-    <form action="{{ route('productos.index') }}" method="GET" class="filter-form">
+    <form action="{{ route('tienda.index') }}" method="GET" class="filter-form">
         <div class="filter-container">
             <!-- Búsqueda por nombre -->
             <input type="text" name="search" placeholder="Buscar productos..." value="{{ request('search') }}" class="filter-input search-input">

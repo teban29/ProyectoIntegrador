@@ -22,7 +22,7 @@ class YourCRUDController extends Controller
     public function create()
     {
         if (!Auth::check() || Auth::user()->rol_id != 1) {
-            return redirect('/')->with('error', 'No tienes acceso a esta sección');
+            return redirect('/home')->with('error', 'No tienes acceso a esta sección');
         }
 
         return view('gestion.create'); // Asegúrate de que esta vista exista
@@ -32,7 +32,7 @@ class YourCRUDController extends Controller
     public function store(Request $request)
     {
         if (!Auth::check() || Auth::user()->rol_id != 1) {
-            return redirect('/')->with('error', 'No tienes acceso a esta sección');
+            return redirect('/home')->with('error', 'No tienes acceso a esta sección');
         }
 
         // Validar y almacenar el nuevo usuario
