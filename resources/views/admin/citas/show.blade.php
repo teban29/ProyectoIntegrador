@@ -5,6 +5,15 @@
 @endsection
 
 @section('content')
+@php
+    if (!(auth()->check() && auth()->user()->rol_id == 1)) {
+        header('Location: /home');
+        exit();
+    }
+@endphp
+<head>
+    <link rel="stylesheet" href="{{ asset('css/crud_styles.css') }}">
+</head>
     <div class="container">
         <div class="row">
             <div class="col-md-12">

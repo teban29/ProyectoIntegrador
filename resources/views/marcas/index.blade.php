@@ -3,6 +3,15 @@
 @section('title', 'Marcas')
 
 @section('admin-content')
+@php
+    if (!(auth()->check() && auth()->user()->rol_id == 1)) {
+        header('Location: /home');
+        exit();
+    }
+@endphp
+<head>
+    <link rel="stylesheet" href="{{ asset('css/crud_styles.css') }}">
+</head>
     <h1>Marcas</h1>
     <a href="{{ route('marcas.create') }}">Crear Marca</a>
 

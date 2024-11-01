@@ -4,6 +4,17 @@
 
 @section('admin-content')
 
+@php
+    if (!(auth()->check() && auth()->user()->rol_id == 1)) {
+        header('Location: /home');
+        exit();
+    }
+@endphp
+
+<head>
+    <link rel="stylesheet" href="{{ asset('css/crud_styles.css') }}">
+</head>
+
 <div class="container">
     <h1>Usuarios</h1>
     <a href="{{ route('usuarios.create') }}" class="btn">Crear Usuario</a>

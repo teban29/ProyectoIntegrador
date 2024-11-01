@@ -1,3 +1,4 @@
+/* Reset y Estilos Generales */
 * {
     margin: 0;
     padding: 0;
@@ -11,10 +12,10 @@ body, html {
 
 .navbar {
     background-color: rgb(0, 0, 0);
-    padding: 10px 20px; /* Si necesitas ajustar el padding, hazlo */
+    padding: 10px 20px;
     position: fixed; /* Hacer que el navbar esté fijo en la parte superior */
-    width: 100%; /* Asegurar que ocupe el ancho completo */
-    z-index: 2000; /* Mayor z-index para que esté sobre el sidebar */
+    width: 100vw; /* Asegurar que ocupe el ancho completo sin desbordamiento */
+    z-index: 2000;
 }
 
 .container {
@@ -49,8 +50,8 @@ body, html {
 
 .nav-items img {
     margin-right: 8px; /* Espacio entre el icono y el texto */
-    width: 20px; /* Ajusta el tamaño del icono */
-    height: 20px; /* Ajusta el tamaño del icono */
+    width: 20px;
+    height: 20px;
 }
 
 .nav-items img.nav-picture {
@@ -61,16 +62,25 @@ body, html {
     width: 250px;
     background-color: rgb(0, 0, 0);
     color: #fff;
-    position: fixed; /* Mantener el sidebar fijo a la izquierda */
-    top: 55px; /* Cambia esto a la altura del navbar, ajusta si es necesario */
-    left: 0;
-    height: calc(100vh - 50px); /* Asegurar que el sidebar ocupe el resto de la ventana */
+    position: fixed;
+    top: 55px;
+    left: -250px; /* Oculto fuera de la pantalla inicialmente */
+    height: calc(100vh - 50px);
     padding: 20px;
     box-sizing: border-box;
+    z-index: 1500;
+    transition: left 0.3s ease; /* Transición suave para mostrar/ocultar */
+}
+.sidebar-visible {
+    left: 0; /* Trae el sidebar dentro de la pantalla */
+}
+.content.sidebar-visible {
+    margin-left: 250px; /* Espacio para el sidebar */
+    transition: margin-left 0.3s ease;
 }
 
 .content {
-    margin-left: 250px; /* Espacio para el sidebar */
+    padding-left: 250px; /* Reemplaza margin-left con padding-left para evitar desbordamiento */
     padding: 20px;
     margin-top: 50px; /* Cambia esto a la altura del navbar */
 }
@@ -122,22 +132,23 @@ body, html {
 .sidebar li {
     margin: 10px 0;
 }
+
 .sidebar a {
     display: flex; /* Para alinear icono y texto */
     align-items: center; /* Centra verticalmente */
     color: #fff;
     text-decoration: none;
-    padding: 10px 15px; /* Espaciado interno para el botón */
-    border-radius: 5px; /* Bordes redondeados */
-    transition: background-color 0.3s; /* Suaviza la transición del hover */
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
 .sidebar a:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Fondo en hover */
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .sidebar img {
     margin-right: 8px; /* Espacio entre el icono y el texto */
-    width: 20px; /* Ajusta el tamaño del icono */
-    height: 20px; /* Ajusta el tamaño del icono */
+    width: 20px;
+    height: 20px;
 }

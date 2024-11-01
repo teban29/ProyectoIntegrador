@@ -3,6 +3,9 @@
 @section('title', 'Servicios')
 
 @section('admin-content')
+<head>
+    <link rel="stylesheet" href="{{ asset('css/crud_styles.css') }}">
+</head>
     <h1>Servicios</h1>
     <a href="{{ route('servicios.create') }}">Crear Servicio</a>
 

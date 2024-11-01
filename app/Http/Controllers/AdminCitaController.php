@@ -23,9 +23,7 @@ class AdminCitaController extends Controller
 
     public function create()
     {
-        if (Auth::id() != 1) {
-            return redirect('/')->with('error', 'No tienes acceso a esta sección.');
-        }
+
         $servicios = Servicio::all();
         $clientes = Usuario::where('rol_id', 3)->get(); // Asumiendo 3 es el rol de cliente
         $barberos = Usuario::where('rol_id', 2)->get(); // Asumiendo 2 es el rol de barbero

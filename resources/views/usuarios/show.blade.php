@@ -11,6 +11,10 @@
     }
 @endphp
 
+<head>
+    <link rel="stylesheet" href="{{ asset('css/crud_styles.css') }}">
+</head>
+
 <div class="content">
     <h1>Detalles del Usuario</h1>
     <p><strong>Nombre:</strong> {{ $usuario->nombre }}</p>

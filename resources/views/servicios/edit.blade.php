@@ -3,6 +3,9 @@
 @section('title', 'Editar Servicio')
 
 @section('admin-content')
+<head>
+    <link rel="stylesheet" href="{{ asset('css/crud_styles.css') }}">
+</head>
     <h1>Editar Servicio</h1>
 
     <form action="{{ route('servicios.update', $servicio) }}" method="POST">
