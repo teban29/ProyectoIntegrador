@@ -14,10 +14,10 @@
 <head>
     <link rel="stylesheet" href="{{ asset('css/crud_styles.css') }}">
 </head>
-<div class="container">
-    <h1>Editar Usuario</h1>
+<div class="crud-container" style="background-color: #2c2c2c; width: 100%; min-height: 100vh;">
+    <h1 class="crud-header">Editar Usuario</h1>
 
-    <form action="{{ route('usuarios.update', $usuario->id) }}" method="POST">
+    <form action="{{ route('usuarios.update', $usuario->id) }}" method="POST" class="crud-form">
         @csrf
         @method('PUT')
 
@@ -34,21 +34,20 @@
         <label for="email">Email:</label>
         <input type="email" name="email" value="{{ old('email', $usuario->email) }}" required>
 
-        <label for="password">Contraseña (dejar en blanco para no cambiar)</label>
+        <label for="password">Contraseña (dejar en blanco para no cambiar):</label>
         <input type="password" name="password">
 
-        <label for="password_confirmation">Confirmar Contraseña</label>
+        <label for="password_confirmation">Confirmar Contraseña:</label>
         <input type="password" name="password_confirmation">
 
         <label for="rol_id">Rol:</label>
-
         <select name="rol_id" required>
             @foreach($roles as $rol)
                 <option value="{{ $rol->id }}" {{ $rol->id == $usuario->rol_id ? 'selected' : '' }}>{{ $rol->nombre }}</option>
             @endforeach
         </select>
 
-        <button type="submit">Actualizar</button>
+        <button type="submit" class="crud-button">Actualizar</button>
     </form>
 </div>
 @endsection

@@ -18,16 +18,8 @@
     <link rel="stylesheet" href="{{ asset('css/crud_styles.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </header>
-<button id="toggleSidebar" class="btn-primary">Mostrar/Ocultar Sidebar</button>
-    <h1>Gestión de Clientes</h1>
 
 
-    <script>
-    document.getElementById('toggleSidebar').addEventListener('click', function () {
-        // Alterna la clase en el sidebar y el contenido
-        document.querySelector('.sidebar').classList.toggle('sidebar-visible');
-        document.querySelector('.content').classList.toggle('sidebar-visible');
-    });
-</script>
-    <!-- Contenido específico de la gestión de clientes, como el listado y los botones de CRUD -->
+
+   
 @endsection

@@ -12,13 +12,15 @@
 <head>
     <link rel="stylesheet" href="{{ asset('css/crud_styles.css') }}">
 </head>
-    <h1>Crear Categoría</h1>
+<div class="crud-container" style="background-color: #2c2c2c; width: 100%; min-height: 100vh;">
+    <h1 class="crud-header">Crear Categoría</h1>
 
-    <form action="{{ route('categorias.store') }}" method="POST">
+    <form action="{{ route('categorias.store') }}" method="POST" class="crud-form">
         @csrf
         <label for="nombre">Nombre:</label>
         <input type="text" name="nombre" required>
 
-        <button type="submit">Crear</button>
+        <button type="submit" class="crud-button">Crear</button>
     </form>
+</div>
 @endsection

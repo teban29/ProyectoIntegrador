@@ -14,16 +14,15 @@
 <head>
     <link rel="stylesheet" href="{{ asset('css/crud_styles.css') }}">
 </head>
-
-<div class="container">
-    <h1>Usuarios</h1>
-    <a href="{{ route('usuarios.create') }}" class="btn">Crear Usuario</a>
+<div class="crud-container" style="background-color: #2c2c2c; width: 100%; min-height: 100vh;">
+    <h1 class="crud-header">Usuarios</h1>
+    <a href="{{ route('usuarios.create') }}" class="crud-button">Crear Usuario</a>
 
     @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="crud-success-message">{{ session('success') }}</div>
     @endif
 
-    <table>
+    <table class="crud-table">
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -39,12 +38,12 @@
                     <td>{{ $usuario->apellido }}</td>
                     <td>{{ $usuario->email }}</td>
                     <td>
-                        <a href="{{ route('usuarios.show', $usuario->id) }}">Ver</a>
-                        <a href="{{ route('usuarios.edit', $usuario->id) }}">Editar</a>
+                        <a href="{{ route('usuarios.show', $usuario->id) }}" class="crud-link">Ver</a>
+                        <a href="{{ route('usuarios.edit', $usuario->id) }}" class="crud-link">Editar</a>
                         <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Eliminar</button>
+                            <button type="submit" class="crud-button crud-delete-button">Eliminar</button>
                         </form>
                     </td>
                 </tr>

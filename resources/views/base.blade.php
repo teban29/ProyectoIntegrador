@@ -19,11 +19,6 @@
                     </a>
                 </li>
                 <li class="nav-items">
-                    <a href="#">
-                        <img src="{{ asset('img/services.png') }}" alt="Servicios" class="nav-picture">Servicios
-                    </a>
-                </li>
-                <li class="nav-items">
                     <a href="{{ route('tienda.index') }}">
                         <img src="{{ asset('img/shop.png') }}" alt="Comprar" class="nav-picture">Tienda
                     </a>

@@ -12,9 +12,11 @@
 <head>
     <link rel="stylesheet" href="{{ asset('css/crud_styles.css') }}">
 </head>
-    <h1>Editar Cita</h1>
+<body>
+<div class="crud-container">
+    <h1 class="crud-header">Editar Cita</h1>
 
-    <form action="{{ route('citas.update', $cita->id) }}" method="POST">
+    <form action="{{ route('admin.citas.edit', $cita->id) }}" method="POST" class="crud-form">
         @csrf
         @method('PUT')
         
@@ -51,6 +53,10 @@
             @endforeach
         </select>
 
-        <button type="submit">Actualizar</button>
+        <button type="submit" class="crud-button">Actualizar</button>
     </form>
+</div>
+
+    
+</body>
 @endsection

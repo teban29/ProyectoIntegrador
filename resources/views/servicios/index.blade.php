@@ -6,14 +6,15 @@
 <head>
     <link rel="stylesheet" href="{{ asset('css/crud_styles.css') }}">
 </head>
-    <h1>Servicios</h1>
-    <a href="{{ route('servicios.create') }}">Crear Servicio</a>
+<div class="crud-container" style="background-color: #2c2c2c; width: 100%; min-height: 100vh;">
+    <h1 class="crud-header">Servicios</h1>
+    <a href="{{ route('servicios.create') }}" class="crud-button">Crear Servicio</a>
 
     @if(session('success'))
-        <div>{{ session('success') }}</div>
+        <div class="crud-success-message">{{ session('success') }}</div>
     @endif
 
-    <table>
+    <table class="crud-table">
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -29,15 +30,16 @@
                     <td>{{ $servicio->precio }}</td>
                     <td>{{ $servicio->duracion }}</td>
                     <td>
-                        <a href="{{ route('servicios.edit', $servicio) }}">Editar</a>
+                        <a href="{{ route('servicios.edit', $servicio) }}" class="crud-link">Editar</a>
                         <form action="{{ route('servicios.destroy', $servicio) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Eliminar</button>
+                            <button type="submit" class="crud-button crud-delete-button">Eliminar</button>
                         </form>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+</div>
 @endsection

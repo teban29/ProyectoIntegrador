@@ -49,7 +49,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [AdminCitaController::class, 'store'])->name('admin.citas.store');
         Route::get('/{id}', [AdminCitaController::class, 'show'])->name('admin.citas.show');
         Route::get('/{id}/edit', [AdminCitaController::class, 'edit'])->name('admin.citas.edit');
-        Route::put('/{id}', [AdminCitaController::class, 'update'])->name('admin.citas.update');
         Route::delete('/{id}', [AdminCitaController::class, 'destroy'])->name('admin.citas.destroy');
     });
 });

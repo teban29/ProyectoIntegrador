@@ -64,25 +64,27 @@ body, html {
     color: #fff;
     position: fixed;
     top: 55px;
-    left: -250px; /* Oculto fuera de la pantalla inicialmente */
-    height: calc(100vh - 50px);
+    left: 0; /* Mostrar el sidebar */
+    height: calc(100vh - 55px);
     padding: 20px;
     box-sizing: border-box;
     z-index: 1500;
     transition: left 0.3s ease; /* Transición suave para mostrar/ocultar */
 }
-.sidebar-visible {
-    left: 0; /* Trae el sidebar dentro de la pantalla */
-}
-.content.sidebar-visible {
-    margin-left: 250px; /* Espacio para el sidebar */
-    transition: margin-left 0.3s ease;
+
+.sidebar-hidden {
+    left: -250px; /* Ocultar el sidebar */
 }
 
 .content {
-    padding-left: 250px; /* Reemplaza margin-left con padding-left para evitar desbordamiento */
+    padding-left: 250px;
     padding: 20px;
     margin-top: 50px; /* Cambia esto a la altura del navbar */
+    transition: padding-left 0.3s ease; /* Transición suave para el contenido */
+}
+
+.content.sidebar-hidden {
+    padding-left: 0; /* Ajustar el contenido cuando el sidebar esté oculto */
 }
 
 .citas-dropdown {

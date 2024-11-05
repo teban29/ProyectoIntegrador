@@ -12,9 +12,10 @@
 <head>
     <link rel="stylesheet" href="{{ asset('css/crud_styles.css') }}">
 </head>
-    <h1>Crear Cita</h1>
+    <div class="crud-container">
+        <h1 class="crud-header">Crear Cita</h1>
 
-    <form action="{{ route('citas.store') }}" method="POST">
+    <form action="{{ route('citas.store') }}" method="POST" class="crud-form">
         @csrf
         <label for="fecha">Fecha:</label>
         <input type="date" id="fecha" name="fecha" required>
@@ -43,6 +44,8 @@
             @endforeach
         </select>
 
-        <button type="submit">Crear</button>
-    </form>        
+        <button type="submit" class="crud-button">Crear</button>
+    </form>
+</div>
+
 @endsection

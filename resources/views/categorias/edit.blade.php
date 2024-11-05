@@ -12,14 +12,16 @@
 <head>
     <link rel="stylesheet" href="{{ asset('css/crud_styles.css') }}">
 </head>
-    <h1>Editar Categoría</h1>
-    <form action="{{ route('categorias.update', $categoria) }}" method="POST">
+<div class="crud-container" style="background-color: #2c2c2c; width: 100%; min-height: 100vh;">
+    <h1 class="crud-header">Editar Categoría</h1>
+    <form action="{{ route('categorias.update', $categoria) }}" method="POST" class="crud-form">
         @csrf
         @method('PUT')
         
         <label for="nombre">Nombre:</label>
         <input type="text" name="nombre" value="{{ $categoria->nombre }}" required>
 
-        <button type="submit">Actualizar</button>
+        <button type="submit" class="crud-button">Actualizar</button>
     </form>
+</div>
 @endsection

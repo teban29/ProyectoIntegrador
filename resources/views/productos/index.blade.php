@@ -14,16 +14,17 @@
 <head>
     <link rel="stylesheet" href="{{ asset('css/crud_styles.css') }}">
 </head>
-<h1>Lista de Productos</h1>
-    <a href="{{ route('productos.create') }}">Crear Producto</a>
+<div class="crud-container" style="background-color: #2c2c2c; width: 100%; min-height: 100vh;">
+    <h1 class="crud-header">Lista de Productos</h1>
+    <a href="{{ route('productos.create') }}" class="crud-button">Crear Producto</a>
 
-    <table>
+    <table class="crud-table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Precio</th>
-                <th>Imagen</th> <!-- Nueva columna para la imagen -->
+                <th>Imagen</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -34,7 +35,6 @@
                     <td>{{ $producto->nombre }}</td>
                     <td>{{ $producto->precio }}</td>
                     <td>
-                        <!-- Mostrar la imagen si existe -->
                         @if($producto->imagen_url)
                             <img src="{{ asset('storage/' . $producto->imagen_url) }}" alt="{{ $producto->nombre }}" style="width: 50px; height: auto;">
                         @else
@@ -42,15 +42,16 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{ route('productos.edit', $producto->id) }}">Editar</a>
+                        <a href="{{ route('productos.edit', $producto->id) }}" class="crud-link">Editar</a>
                         <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Eliminar</button>
+                            <button type="submit" class="crud-button crud-delete-button">Eliminar</button>
                         </form>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+</div>
 @endsection
