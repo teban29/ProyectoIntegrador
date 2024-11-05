@@ -14,8 +14,9 @@ body, html {
     background-color: rgb(0, 0, 0);
     padding: 10px 20px;
     position: fixed; /* Hacer que el navbar esté fijo en la parte superior */
-    width: 100vw; /* Asegurar que ocupe el ancho completo sin desbordamiento */
+    width: 100%; /* Asegurar que ocupe el ancho completo sin desbordamiento */
     z-index: 2000;
+    box-sizing: border-box;
 }
 
 .container {
@@ -34,6 +35,7 @@ body, html {
 .navbar-menu {
     display: flex;
     list-style: none;
+    transition: max-height 0.3s ease;
 }
 
 .nav-items {
@@ -58,6 +60,16 @@ body, html {
     border-radius: 50%; /* Redondear la imagen de perfil */
 }
 
+.navbar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Sidebar */
 .sidebar {
     width: 250px;
     background-color: rgb(0, 0, 0);
@@ -76,15 +88,26 @@ body, html {
     left: -250px; /* Ocultar el sidebar */
 }
 
-.content {
-    padding-left: 250px;
-    padding: 20px;
-    margin-top: 50px; /* Cambia esto a la altura del navbar */
-    transition: padding-left 0.3s ease; /* Transición suave para el contenido */
+.sidebar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+    position: fixed;
+    top: 60px;
+    left: 10px;
+    z-index: 1600;
 }
 
-.content.sidebar-hidden {
-    padding-left: 0; /* Ajustar el contenido cuando el sidebar esté oculto */
+/* Contenido Principal */
+.content {
+    padding: 20px;
+    margin-top: 55px; /* Cambia esto a la altura del navbar */
+    transition: padding-left 0.3s ease; /* Transición suave para el contenido */
+    box-sizing: border-box; /* Asegurar que el contenido no genere desbordamiento */
+    overflow-x: hidden;
 }
 
 .citas-dropdown {
@@ -153,4 +176,64 @@ body, html {
     margin-right: 8px; /* Espacio entre el icono y el texto */
     width: 20px;
     height: 20px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .navbar-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 55px;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.9);
+        width: 100%;
+        z-index: 1999;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .navbar-menu.show {
+        display: flex;
+    }
+
+    .navbar-toggle {
+        display: block; /* Mostrar solo en pantallas pequeñas */
+    }
+
+    .container {
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .sidebar {
+        left: -250px;
+    }
+
+    .sidebar.sidebar-visible {
+        left: 0;
+    }
+
+    .sidebar-toggle {
+        display: block; /* Mostrar el botón del sidebar solo en pantallas pequeñas */
+    }
+}
+
+/* Ocultar el botón de hamburguesa en pantallas grandes */
+@media (min-width: 769px) {
+    .navbar-toggle {
+        display: none;
+    }
+
+    .navbar-menu {
+        display: flex !important; /* Asegurar que el menú esté siempre visible */
+    }
+
+    .sidebar {
+        left: 0;
+    }
+
+    .sidebar-toggle {
+        display: none;
+    }
 }

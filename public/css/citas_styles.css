@@ -26,7 +26,7 @@ body {
     margin: 0 auto;
 }
 
-.citas-container p {	
+.citas-container p {
     color: #ffffff;
 }
 
@@ -144,4 +144,43 @@ input[type="date"] {
 input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1); /* Cambia el color del ícono del calendario a blanco en navegadores Webkit */
     cursor: pointer;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .citas-container {
+        padding: 15px;
+        max-width: 90%; /* Reducir el ancho máximo para pantallas pequeñas */
+        box-shadow: none; /* Eliminar la sombra para una apariencia más sencilla */
+        min-height: 60vh; /* Reducir altura mínima en pantallas pequeñas */
+    }
+
+    h1, h2 {
+        font-size: 1.5em; /* Reducir el tamaño de los títulos para pantallas pequeñas */
+        margin-bottom: 15px;
+    }
+
+    input, select, button {
+        font-size: 14px; /* Ajustar el tamaño de texto para entradas y botones en pantallas pequeñas */
+        padding: 8px; /* Reducir el padding en pantallas pequeñas */
+    }
+
+    .form-group {
+        margin-bottom: 10px; /* Reducir espacio entre grupos de formularios */
+    }
+
+    .citas-table th, .citas-table td {
+        padding: 8px; /* Reducir el padding de la tabla */
+        font-size: 0.9em; /* Ajustar el tamaño del texto de la tabla */
+    }
+
+    .btn-danger {
+        padding: 4px 8px; /* Reducir padding para el botón de eliminar */
+        font-size: 13px;
+    }
+
+    input[type="date"] {
+        padding: 8px; /* Reducir el padding para el campo de fecha */
+        font-size: 14px; /* Ajustar el tamaño del texto */
+    }
 }

@@ -9,7 +9,7 @@ class Servicio extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre', 'descripcion', 'precio'];
+    protected $fillable = ['nombre', 'descripcion', 'precio', 'duracion'];
 
     public function citas()
     {

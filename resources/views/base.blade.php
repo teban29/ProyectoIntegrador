@@ -12,6 +12,7 @@
     <nav class="navbar">
         <div class="container">
             <a class="navbar-brand" href="{{ route('home') }}">North Barber</a>
+            <button class="navbar-toggle" onclick="toggleNavbarMenu()">☰</button>
             <ul class="navbar-menu">
                 <li class="nav-items">
                     <a href="{{ route('home') }}">
@@ -27,6 +28,7 @@
                     <li class="nav-items">
                         <a href="{{ route('gestion.index') }}">
                             <img src="{{ asset('img/dashboard.png') }}" alt="Dashboard" class="nav-picture">Gestión
+                        </a>
                     </li>
                 @endif
                 <!-- Menú desplegable para "Citas" -->
@@ -75,6 +77,12 @@
         @yield('content')
     </div>
 
+    <script>
+        function toggleNavbarMenu() {
+            const navbarMenu = document.querySelector('.navbar-menu');
+            navbarMenu.classList.toggle('show');
+        }
+    </script>
     <!-- Footer -->
 
 </body>
