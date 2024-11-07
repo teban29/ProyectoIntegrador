@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin/citas')->group(function () {
         Route::get('/', [AdminCitaController::class, 'index'])->name('admin.citas.index');
         Route::get('/create', [AdminCitaController::class, 'create'])->name('admin.citas.create');
+        Route::post('citas/filtrar', [AdminCitaController::class, 'filtrar'])->name('admin.citas.filtrar');
         Route::post('/', [AdminCitaController::class, 'store'])->name('admin.citas.store');
         Route::get('/{id}', [AdminCitaController::class, 'show'])->name('admin.citas.show');
         Route::get('/{id}/edit', [AdminCitaController::class, 'edit'])->name('admin.citas.edit');

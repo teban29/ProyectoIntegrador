@@ -28,7 +28,7 @@ class Cita extends Model
     //relacion con cliente
     public function cliente()
     {
-        return $this->belongsTo(User::class, 'cliente_id');
+        return $this->belongsTo(Usuario::class, 'cliente_id');
     }
     
     //relacion con barbero

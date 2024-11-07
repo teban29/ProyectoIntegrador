@@ -21,30 +21,80 @@ class AdminCitaController extends Controller
         return view('admin.citas.index', compact('citas'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-
+        $clientes = Usuario::where('rol_id', 3)->get();
         $servicios = Servicio::all();
-        $clientes = Usuario::where('rol_id', 3)->get(); // Asumiendo 3 es el rol de cliente
-        $barberos = Usuario::where('rol_id', 2)->get(); // Asumiendo 2 es el rol de barbero
+        $fecha = now()->format('Y-m-d');
+        $horas = $this->getAvailableHours($fecha);
 
-        return view('admin.citas.create', compact('servicios', 'clientes', 'barberos'));
+        return view('admin.citas.create', compact('clientes', 'servicios', 'fecha', 'horas'));
+
+    }
+
+    public function filtrar(Request $request)
+    {
+        $request->validate([
+            'cliente_id' => 'required|exists:usuarios,id',
+            'servicio_id' => 'required|exists:servicios,id',
+            'fecha' => 'required|date|after_or_equal:today',
+            'hora' => 'required',
+        ]);
+
+        $clientes = Usuario::where('rol_id', 3)->get();
+        $servicios = Servicio::all();
+
+        $cliente_id = $request->cliente_id;
+        $servicio_id = $request->servicio_id;
+        $fecha = $request->fecha;
+        $horaSeleccionada = $request->hora;
+        $horas = $this->getAvailableHours($fecha);
+
+        // Filtrar barberos disponibles
+        $barberosDisponibles = Usuario::where('rol_id', 2) // Rol de barbero
+            ->whereDoesntHave('citas', function ($query) use ($fecha, $horaSeleccionada) {
+                $query->where('fecha', $fecha)
+                      ->where('hora', $horaSeleccionada);
+            })
+            ->get();
+
+        return view('admin.citas.create', compact('clientes', 'servicios', 'barberosDisponibles', 'fecha', 'horas', 'cliente_id', 'servicio_id', 'horaSeleccionada'));
     }
 
     public function store(Request $request)
     {
-
         $request->validate([
-            'fecha' => 'required|date',
-            'hora' => 'required|date_format:H:i',
-            'servicio_id' => 'required|exists:servicios,id',
             'cliente_id' => 'required|exists:usuarios,id',
+            'servicio_id' => 'required|exists:servicios,id',
+            'fecha' => 'required|date|after_or_equal:today',
+            'hora' => 'required',
             'barbero_id' => 'required|exists:usuarios,id',
         ]);
 
-        Cita::create($request->all());
+        Cita::create([
+            'cliente_id' => $request->cliente_id,
+            'servicio_id' => $request->servicio_id,
+            'fecha' => $request->fecha,
+            'hora' => $request->hora,
+            'barbero_id' => $request->barbero_id,
+        ]);
 
         return redirect()->route('admin.citas.index')->with('success', 'Cita creada con éxito.');
+    }
+
+    private function getAvailableHours($fecha)
+    {
+        $horas = [];
+        $horaInicio = 9; // 9 AM
+        $horaFin = 19; // 7 PM
+
+        for ($hora = $horaInicio; $hora < $horaFin; $hora++) {
+            $horas[] = date('H:i', strtotime("$hora:00"));
+            $horas[] = date('H:i', strtotime("$hora:30")); // Intervalo de 30 minutos
+        }
+
+        $citas = Cita::where('fecha', $fecha)->pluck('hora')->toArray();
+        return array_diff($horas, $citas);
     }
 
     public function show($id)

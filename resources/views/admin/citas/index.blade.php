@@ -38,9 +38,9 @@
             <tr>
                 <td>{{ $cita->fecha }}</td>
                 <td>{{ $cita->hora }}</td>
-                <td>{{ $cita->servicio->nombre ?? 'Servicio no disponible' }}</td>
-                <td>{{ $cita->cliente->nombre ?? 'Cliente no disponible' }}</td>
-                <td>{{ $cita->barbero->nombre ?? 'Barbero no disponible' }}</td>
+                <td>{{ optional($cita->servicio)->nombre }}</td>
+                <td>{{ optional($cita->cliente)->nombre ?? 'No disponible' }}</td>
+                <td>{{ optional($cita->barbero)->nombre ?? 'No disponible' }}</td>
                 <td>
                     <a href="{{ route('admin.citas.edit', $cita->id) }}" class="crud-link">Editar</a>
                     <form action="{{ route('admin.citas.destroy', $cita->id) }}" method="POST" style="display:inline;">
