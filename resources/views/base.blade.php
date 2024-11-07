@@ -31,16 +31,26 @@
                         </a>
                     </li>
                 @endif
+
                 <!-- Menú desplegable para "Citas" -->
-                <li class="nav-items citas-dropdown">
-                    <a href="#">
-                        <img src="{{ asset('img/citas.png') }}" alt="Citas" class="nav-picture">Citas
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('citas.agendar') }}">Nueva Cita</a></li>
-                        <li><a class="dropdown-item" href="{{ route('citas.ver') }}">Ver Citas</a></li>
-                    </ul>
-                </li>
+                @if(Auth::check() && Auth::user()->rol_id == 3) <!-- Cliente -->
+                    <li class="nav-items citas-dropdown">
+                        <a href="#">
+                            <img src="{{ asset('img/citas.png') }}" alt="Citas" class="nav-picture">Citas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ route('citas.agendar') }}">Nueva Cita</a></li>
+                            <li><a class="dropdown-item" href="{{ route('citas.cliente') }}">Mis Citas</a></li>
+                        </ul>
+                    </li>
+                @elseif(Auth::check() && Auth::user()->rol_id == 2) <!-- Barbero -->
+                    <li class="nav-items">
+                        <a href="{{ route('citas.barbero') }}">
+                            <img src="{{ asset('img/citas.png') }}" alt="Citas" class="nav-picture">Citas Asignadas
+                        </a>
+                    </li>
+                @endif
+
                 <li class="nav-items">
                     <a href="{{ route('carrito.mostrar') }}">
                         <img src="{{ asset('img/carrito.png') }}" alt="Carrito" class="nav-picture">Carrito

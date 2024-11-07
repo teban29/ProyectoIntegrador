@@ -39,7 +39,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/citas/agendar', [CitaController::class, 'create'])->name('citas.agendar');
     Route::post('/citas/filtrar', [CitaController::class, 'filtrar'])->name('citas.filtrar');
     Route::post('/citas/store', [CitaController::class, 'store'])->name('citas.store');
-    Route::get('/citas/ver', [CitaController::class, 'ver'])->name('citas.ver');
+    Route::get('/citas/cliente', [CitaController::class, 'verCitasCliente'])->name('citas.cliente');
+    Route::get('/citas/barbero', [CitaController::class, 'verCitasBarbero'])->name('citas.barbero');
+    Route::get('/citas/ver', [CitaController::class, 'verCitas'])->name('citas.ver'); // Asegúrate de que esta línea esté presente
+
     Route::delete('/citas/{id}/cancelar', [CitaController::class, 'cancelar'])->name('citas.cancelar');
 
     // CRUD para administración de citas

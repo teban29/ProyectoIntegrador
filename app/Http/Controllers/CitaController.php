@@ -56,7 +56,7 @@ class CitaController extends Controller
             'hora' => 'required',
             'barbero_id' => 'required|exists:usuarios,id',
         ]);
-
+    
         // Crear la cita
         Cita::create([
             'servicio_id' => $request->servicio_id,
@@ -65,8 +65,17 @@ class CitaController extends Controller
             'barbero_id' => $request->barbero_id,
             'cliente_id' => Auth::id(),
         ]);
-
-        return redirect()->route('citas.ver')->with('success', 'Cita agendada con éxito.');
+    
+        // Redirigir según el rol del usuario
+        if (Auth::user()->rol_id == 3) {
+            // Cliente
+            return redirect()->route('citas.cliente')->with('success', 'Cita agendada con éxito.');
+        } elseif (Auth::user()->rol_id == 2) {
+            // Barbero
+            return redirect()->route('citas.barbero')->with('success', 'Cita agendada con éxito.');
+        }
+    
+        return redirect()->route('home')->with('success', 'Cita agendada con éxito.');
     }
 
     private function getAvailableHours($fecha)
@@ -85,22 +94,43 @@ class CitaController extends Controller
         return array_diff($horas, $citas); // Devolver horas disponibles
     }
 
-    public function ver()
+    public function verCitasCliente()
     {
-        // Cargar las citas del usuario autenticado
-        $citas = Cita::with(['servicio', 'barbero'])
-                    ->where('cliente_id', auth()->id())
-                    ->get();
+        $citas = Cita::with(['servicio','barbero'])
+            ->where('cliente_id', Auth::id())
+            ->get();
 
         return view('citas.ver', compact('citas'));
     }
 
-    public function cancelar(Request $request, $id)
+    public function verCitasBarbero()
     {
-        $cita = Cita::findOrFail($id);
-        $cita->delete();
+        $citas = Cita::with(['servicio','cliente'])
+            ->where('barbero_id', Auth::id())
+            ->get();
 
-        return redirect()->route('citas.ver')->with('success', 'Cita cancelada con éxito.');
+        return view('citas.ver', compact('citas'));
     }
+
+    public function cancelar($id)
+    {
+        // Buscar la cita por ID
+        $cita = Cita::findOrFail($id);
+    
+        // Eliminar la cita
+        $cita->delete();
+    
+        // Redirigir según el rol del usuario
+        if (Auth::user()->rol_id == 3) {
+            // Cliente
+            return redirect()->route('citas.cliente')->with('success', 'Cita cancelada exitosamente.');
+        } elseif (Auth::user()->rol_id == 2) {
+            // Barbero
+            return redirect()->route('citas.barbero')->with('success', 'Cita cancelada exitosamente.');
+        }
+    
+        return redirect()->route('home')->with('success', 'Cita cancelada exitosamente.');
+    }
+    
 
 }
