@@ -21,7 +21,10 @@
                     @endif
                     <th>Fecha</th>
                     <th>Hora</th>
-                    <th>Acciones</th>
+                    <th>Estado</th>
+                    @if (Auth::user()->rol_id == 3) <!-- Cliente, mostrar acciones -->
+                        <th>Acciones</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -36,14 +39,32 @@
                         <td>{{ $cita->fecha }}</td>
                         <td>{{ $cita->hora }}</td>
                         <td>
-                            @if (Auth::user()->rol_id == 3) <!-- Solo los clientes pueden cancelar las citas -->
+                            @if (Auth::user()->rol_id == 2) <!-- Barbero -->
+                                <!-- Formulario para cambiar el estado -->
+                                <form action="{{ route('citas.updateEstado', $cita->id) }}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <select name="estado_id" onchange="this.form.submit()">
+                                        @foreach ($estados as $estado)
+                                            <option value="{{ $estado->id }}" {{ $estado->id == $cita->estado_id ? 'selected' : '' }}>
+                                                {{ $estado->nombre }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </form>
+                            @else
+                                {{ optional($cita->estado)->nombre ?? 'No asignado' }}
+                            @endif
+                        </td>
+                        @if (Auth::user()->rol_id == 3) <!-- Solo el cliente puede ver las acciones -->
+                            <td>
                                 <form action="{{ route('citas.cancelar', $cita->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas cancelar esta cita?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Cancelar</button>
                                 </form>
-                            @endif
-                        </td>
+                            </td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>

@@ -41,20 +41,22 @@ Route::middleware('auth')->group(function () {
     Route::post('/citas/store', [CitaController::class, 'store'])->name('citas.store');
     Route::get('/citas/cliente', [CitaController::class, 'verCitasCliente'])->name('citas.cliente');
     Route::get('/citas/barbero', [CitaController::class, 'verCitasBarbero'])->name('citas.barbero');
-    Route::get('/citas/ver', [CitaController::class, 'verCitas'])->name('citas.ver'); // Asegúrate de que esta línea esté presente
-
+    Route::get('/citas/ver', [CitaController::class, 'verCitas'])->name('citas.ver');
     Route::delete('/citas/{id}/cancelar', [CitaController::class, 'cancelar'])->name('citas.cancelar');
+    Route::patch('/citas/{cita}/update-estado', [CitaController::class, 'updateEstado'])->name('citas.updateEstado');
 
-    // CRUD para administración de citas
-    Route::prefix('admin/citas')->group(function () {
-        Route::get('/', [AdminCitaController::class, 'index'])->name('admin.citas.index');
-        Route::get('/create', [AdminCitaController::class, 'create'])->name('admin.citas.create');
-        Route::post('citas/filtrar', [AdminCitaController::class, 'filtrar'])->name('admin.citas.filtrar');
-        Route::post('/', [AdminCitaController::class, 'store'])->name('admin.citas.store');
-        Route::get('/{id}', [AdminCitaController::class, 'show'])->name('admin.citas.show');
-        Route::get('/{id}/edit', [AdminCitaController::class, 'edit'])->name('admin.citas.edit');
-        Route::delete('/{id}', [AdminCitaController::class, 'destroy'])->name('admin.citas.destroy');
+
+    Route::prefix('admin/citas')->name('admin.citas.')->group(function () {
+        Route::get('/', [AdminCitaController::class, 'index'])->name('index');
+        Route::get('/create', [AdminCitaController::class, 'create'])->name('create');
+        Route::post('/filtrar', [AdminCitaController::class, 'filtrar'])->name('filtrar'); // Agrega esta línea
+        Route::post('/store', [AdminCitaController::class, 'store'])->name('store');
+        Route::get('/{cita}', [AdminCitaController::class, 'show'])->name('show');
+        Route::get('/{cita}/edit', [AdminCitaController::class, 'edit'])->name('edit');
+        Route::patch('/{cita}', [AdminCitaController::class, 'update'])->name('update');
+        Route::delete('/{cita}', [AdminCitaController::class, 'destroy'])->name('destroy');
     });
+    
 });
 
 // Tienda

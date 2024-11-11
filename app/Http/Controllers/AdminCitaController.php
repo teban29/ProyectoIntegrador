@@ -10,14 +10,15 @@ use App\Models\Cita;
 use App\Models\Servicio;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use App\Models\Estado;
+use Illuminate\Support\Facades\Log;
+
 
 class AdminCitaController extends Controller
 {
     public function index()
     {
-
-
-        $citas = Cita::with(['servicio', 'cliente', 'barbero'])->get();
+        $citas = Cita::with(['servicio', 'cliente', 'barbero', 'estado'])->get();
         return view('admin.citas.index', compact('citas'));
     }
 
@@ -69,18 +70,21 @@ class AdminCitaController extends Controller
             'fecha' => 'required|date|after_or_equal:today',
             'hora' => 'required',
             'barbero_id' => 'required|exists:usuarios,id',
+            'estado_id' => 'nullable|exists:estados,id', // Nuevo campo opcional
         ]);
-
+    
         Cita::create([
             'cliente_id' => $request->cliente_id,
             'servicio_id' => $request->servicio_id,
             'fecha' => $request->fecha,
             'hora' => $request->hora,
             'barbero_id' => $request->barbero_id,
+            'estado_id' => $request->estado_id, // Asignar el estado si está presente
         ]);
-
+    
         return redirect()->route('admin.citas.index')->with('success', 'Cita creada con éxito.');
     }
+    
 
     private function getAvailableHours($fecha)
     {
@@ -99,38 +103,59 @@ class AdminCitaController extends Controller
 
     public function show($id)
     {
-
-        $cita = Cita::with(['servicio', 'cliente', 'barbero'])->findOrFail($id);
+        $cita = Cita::with(['servicio', 'cliente', 'barbero', 'estado'])->findOrFail($id);
         return view('admin.citas.show', compact('cita'));
     }
 
     public function edit($id)
     {
-
         $cita = Cita::findOrFail($id);
         $servicios = Servicio::all();
         $clientes = Usuario::where('rol_id', 3)->get(); // Clientes
         $barberos = Usuario::where('rol_id', 2)->get(); // Barberos
-
-        return view('admin.citas.edit', compact('cita', 'servicios', 'clientes', 'barberos'));
+        $estados = Estado::all(); // Obtenemos todos los estados
+    
+        // Obtener las horas disponibles para la fecha de la cita
+        $horas = $this->getAvailableHours($cita->fecha);
+    
+        return view('admin.citas.edit', compact('cita', 'servicios', 'clientes', 'barberos', 'estados', 'horas'));
     }
+    
+    
+
+
 
     public function update(Request $request, $id)
     {
-
         $request->validate([
             'fecha' => 'required|date',
-            'hora' => 'required|date_format:H:i',
+            'hora' => 'nullable|date_format:H:i', // Hacemos la hora opcional
             'servicio_id' => 'required|exists:servicios,id',
             'cliente_id' => 'required|exists:usuarios,id',
             'barbero_id' => 'required|exists:usuarios,id',
+            'estado_id' => 'required|exists:estados,id',
         ]);
-
+    
         $cita = Cita::findOrFail($id);
-        $cita->update($request->all());
-
+        $cita->fecha = $request->fecha;
+    
+        // Si se envía la hora, actualizarla; de lo contrario, mantener la actual
+        if ($request->filled('hora')) {
+            $cita->hora = $request->hora;
+        }
+    
+        $cita->servicio_id = $request->servicio_id;
+        $cita->cliente_id = $request->cliente_id;
+        $cita->barbero_id = $request->barbero_id;
+        $cita->estado_id = $request->estado_id;
+    
+        $cita->save();
+    
         return redirect()->route('admin.citas.index')->with('success', 'Cita actualizada con éxito.');
     }
+    
+    
+
 
     public function destroy($id)
     {

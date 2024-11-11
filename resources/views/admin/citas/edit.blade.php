@@ -16,15 +16,24 @@
 <div class="crud-container">
     <h1 class="crud-header">Editar Cita</h1>
 
-    <form action="{{ route('admin.citas.edit', $cita->id) }}" method="POST" class="crud-form">
+    <form action="{{ route('admin.citas.update', $cita->id) }}" method="POST" class="crud-form">
         @csrf
-        @method('PUT')
+        @method('PATCH')
+
         
         <label for="fecha">Fecha:</label>
         <input type="date" id="fecha" name="fecha" value="{{ $cita->fecha }}" required>
     
         <label for="hora">Hora:</label>
-        <input type="time" id="hora" name="hora" value="{{ $cita->hora }}" required>
+        <select id="hora" name="hora">
+            <option value="">Seleccionar hora</option>
+            @foreach ($horas as $hora)
+                <option value="{{ $hora }}" {{ $cita->hora == $hora ? 'selected' : '' }}>
+                    {{ $hora }}
+                </option>
+            @endforeach
+        </select>
+
     
         <label for="servicio_id">Servicio:</label>
         <select id="servicio_id" name="servicio_id" required>
@@ -53,10 +62,29 @@
             @endforeach
         </select>
 
+        <label for="estado_id">Estado:</label>
+        <select id="estado_id" name="estado_id" required>
+            @foreach($estados as $estado)
+                <option value="{{ $estado->id }}" {{ $estado->id == $cita->estado_id ? 'selected' : '' }}>
+                    {{ $estado->nombre }}
+                </option>
+            @endforeach
+        </select>
+
+
         <button type="submit" class="crud-button">Actualizar</button>
     </form>
-</div>
 
-    
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+</div>
 </body>
 @endsection

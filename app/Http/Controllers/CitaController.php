@@ -6,6 +6,7 @@ use App\Models\Servicio;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Estado;
 
 class CitaController extends Controller
 {
@@ -96,21 +97,41 @@ class CitaController extends Controller
 
     public function verCitasCliente()
     {
-        $citas = Cita::with(['servicio','barbero'])
+        $citas = Cita::with(['servicio', 'barbero', 'estado']) // Incluimos la relación 'estado'
             ->where('cliente_id', Auth::id())
             ->get();
-
+    
         return view('citas.ver', compact('citas'));
     }
+    
 
     public function verCitasBarbero()
     {
-        $citas = Cita::with(['servicio','cliente'])
+        $citas = Cita::with(['servicio', 'cliente', 'estado'])
             ->where('barbero_id', Auth::id())
             ->get();
-
-        return view('citas.ver', compact('citas'));
+    
+        $estados = Estado::all(); // Obtenemos todos los estados para el formulario
+    
+        return view('citas.ver', compact('citas', 'estados'));
     }
+    
+
+    public function updateEstado(Request $request, $id)
+    {
+        $request->validate([
+            'estado_id' => 'required|exists:estados,id',
+        ]);
+    
+        $cita = Cita::findOrFail($id);
+        $cita->estado_id = $request->estado_id;
+        $cita->save();
+    
+        return redirect()->back()->with('success', 'Estado de la cita actualizado con éxito.');
+    }
+    
+
+
 
     public function cancelar($id)
     {

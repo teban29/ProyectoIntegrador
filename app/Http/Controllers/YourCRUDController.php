@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Producto;
+use App\Models\Cita;
+use App\Models\Usuario;
+use App\Models\Estado;
 
 class YourCRUDController extends Controller
 {
@@ -14,8 +18,24 @@ class YourCRUDController extends Controller
             return redirect('/')->with('error', 'No tienes acceso a esta sección');
         }
 
-        // Lógica para obtener los datos que quieres mostrar
-        return view('gestion.index'); // Asegúrate de que esta vista exista
+        // Obtener estadísticas para el dashboard
+        $totalProductos = Producto::count();
+        $citasAgendadas = Cita::count();
+        $citasCompletadas = Cita::whereHas('estado', function($query) {
+            $query->where('nombre', 'Completada');
+        })->count();
+        $totalClientes = Usuario::where('rol_id', 3)->count();
+
+        $citasEstadosLabels = Estado::pluck('nombre');
+        $citasEstadosData = Estado::withCount('citas')->pluck('citas_count');
+
+        $productosCategoriasLabels = Producto::distinct('categoria_id')->pluck('categoria_id');
+        $productosCategoriasData = Producto::selectRaw('count(*) as total, categoria_id')
+            ->groupBy('categoria_id')
+            ->pluck('total');
+
+        // Pasar los datos a la vista
+        return view('gestion.index', compact('totalProductos', 'citasAgendadas', 'citasCompletadas', 'totalClientes', 'citasEstadosLabels', 'citasEstadosData', 'productosCategoriasLabels', 'productosCategoriasData'));
     }
 
     // Método para mostrar el formulario de creación

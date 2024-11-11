@@ -17,6 +17,7 @@ class Cita extends Model
         'servicio_id',
         'cliente_id',
         'barbero_id',
+        'estado_id',
     ];
 
     //relacion con servicio
@@ -36,6 +37,12 @@ class Cita extends Model
     {
         return $this->belongsTo(Usuario::class, 'barbero_id');
     }
+
+    public function estado()
+    {
+        return $this->belongsTo(Estado::class, 'estado_id');
+    }
+    
 
 
 }
